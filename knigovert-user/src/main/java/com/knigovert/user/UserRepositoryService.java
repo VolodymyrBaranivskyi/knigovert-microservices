@@ -38,9 +38,10 @@ public class UserRepositoryService implements UserService {
     public User updateUser(Long id, User updatedUser) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + id));
-        user.setEmail(updatedUser.getEmail());
-        user.setPassword(updatedUser.getPassword());
-        user.setName(updatedUser.getName());
+        Optional.ofNullable(updatedUser.getEmail()).ifPresent(user::setEmail);
+        Optional.ofNullable(updatedUser.getPassword()).ifPresent(user::setPassword);
+        Optional.ofNullable(updatedUser.getName()).ifPresent(user::setName);
+        Optional.ofNullable(updatedUser.getBooksRead()).ifPresent((ids) -> ids.forEach(user::addBook));
         return userRepository.save(user);
     }
 }
