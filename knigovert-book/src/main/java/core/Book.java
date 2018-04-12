@@ -21,15 +21,12 @@ public class Book {
     private String summary;
     private Integer publicationYear;
     private Double rate;
-    @ElementCollection
-    private List<Long> usersId;
     private Genre genre;
 
     protected Book(){}
 
     public Book(String title, String authorName, String authorSurname,
-                String summary, Integer publicationYear, Double rate,
-                List<Long> usersId, Genre genre) {
+                String summary, Integer publicationYear, Double rate, Genre genre) {
 
         this.title = title;
         this.authorName = authorName;
@@ -37,7 +34,6 @@ public class Book {
         this.summary = summary;
         this.publicationYear = publicationYear;
         this.rate = rate;
-        this.usersId = usersId;
         this.genre = genre;
     }
 
@@ -95,14 +91,6 @@ public class Book {
 
     public void setRate(Double rate) {
         this.rate = rate;
-    }
-
-    public List<Long> getUsersId() {
-        return usersId;
-    }
-
-    public void setUsersId(List<Long> usersId) {
-        this.usersId = usersId;
     }
 
     public Genre getGenre() {

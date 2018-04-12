@@ -46,13 +46,13 @@ public class BookService {
     public void populateDB()
     {
         bookRepository.save(new Book("FirstBook","authorName","authorSurname",
-                "Bestseller", 2018, 5.0, new ArrayList<Long>(), Genre.SCIFI));
+                "Bestseller", 2018, 5.0, Genre.SCIFI));
         bookRepository.save(new Book("SecondBook","authorName","authorSurname",
-                "Bestseller", 2018, 5.0, new ArrayList<Long>(), Genre.FANTASY));
+                "Bestseller", 2018, 5.0, Genre.FANTASY));
         bookRepository.save(new Book("ThirdBook","authorName","authorSurname",
-                "Bestseller", 2018, 5.0, new ArrayList<Long>(), Genre.SCIFI));
+                "Bestseller", 2018, 5.0, Genre.SCIFI));
         bookRepository.save(new Book("FourthBook","authorName","authorSurname",
-                "Bestseller", 2018, 5.0, new ArrayList<Long>(), Genre.SCIFI));
+                "Bestseller", 2018, 5.0, Genre.SCIFI));
 
     }
 
