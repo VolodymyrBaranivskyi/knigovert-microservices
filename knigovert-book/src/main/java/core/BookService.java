@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -38,8 +39,19 @@ public class BookService {
         return booksPerPage.getContent();
     }
 
-
     public static Book addBook(Book book) {
+        return bookRepository.save(book);
+    }
+
+    public static Book updateBook(Long id, Book updatedBook) {
+        Book book = bookRepository.findById(id);
+        Optional.ofNullable(updatedBook.getAuthorName()).ifPresent(book::setAuthorName);
+        Optional.ofNullable(updatedBook.getAuthorSurname()).ifPresent(book::setAuthorSurname);
+        Optional.ofNullable(updatedBook.getGenre()).ifPresent(book::setGenre);
+        Optional.ofNullable(updatedBook.getPublicationYear()).ifPresent(book::setPublicationYear);
+        Optional.ofNullable(updatedBook.getRate()).ifPresent(book::setRate);
+        Optional.ofNullable(updatedBook.getSummary()).ifPresent(book::setSummary);
+        Optional.ofNullable(updatedBook.getTitle()).ifPresent(book::setTitle);
         return bookRepository.save(book);
     }
 

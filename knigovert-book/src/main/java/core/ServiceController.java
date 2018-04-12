@@ -83,6 +83,11 @@ public class ServiceController {
         return ResponseEntity.created(location).build();
     }
 
+    @PostMapping(value ="api/book/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable("id") Long id, @RequestBody Book updatedBook) {
+        return ResponseEntity.ok(BookService.updateBook(id, updatedBook));
+    }
+
     @GetMapping("api/usersAlsoRead/{id}")
     public List<Book> usersAlsoRead(@PathVariable Long id) {
         Set<Long> bookIdSet = new HashSet<Long>();
