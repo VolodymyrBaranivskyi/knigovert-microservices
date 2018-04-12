@@ -13,9 +13,9 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="knigovert-book" target="1.5" />
+      <module name="knigovert-book" target="1.8" />
       <module name="knigovert-discovery" target="1.8" />
-      <module name="knigovert-review" target="1.5" />
+      <module name="knigovert-review" target="1.8" />
       <module name="knigovert-user" target="1.8" />
     </bytecodeTargetLevel>
   </component>
