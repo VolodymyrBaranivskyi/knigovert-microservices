@@ -9,6 +9,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by Shera on 22.03.2018.
@@ -16,9 +17,10 @@ import java.util.*;
 
 @RestController
 public class ServiceController {
-
     @Autowired
     private UserClient userClient;
+    @Autowired
+    private ReviewClient reviewClient;
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public class ResourceNotFoundException extends RuntimeException {
@@ -67,6 +69,13 @@ public class ServiceController {
     public List<User> getUsersByBook(@PathVariable("id") Long id) {
         return userClient.getUsers().stream()
                 .filter(user -> user.getBooksRead().contains(id))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping(value ="api/book/{id}/reviews")
+    public List<Review> getReviewsByBook(@PathVariable("id") Long id) {
+        return reviewClient.getReviews().stream()
+                .filter(review -> review.getBookId().equals(id))
                 .collect(Collectors.toList());
     }
 
