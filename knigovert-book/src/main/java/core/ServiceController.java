@@ -63,6 +63,13 @@ public class ServiceController {
         }
     }
 
+    @GetMapping(value ="api/book/{id}/users")
+    public List<User> getUsersByBook(@PathVariable("id") Long id) {
+        return userClient.getUsers().stream()
+                .filter(user -> user.getBooksRead().contains(id))
+                .collect(Collectors.toList());
+    }
+
     @GetMapping("api/findBooksByGenre/{genre}/{page}")
     public List<Book> findBooksByGenre(@PathVariable("genre") int genreIndex, @PathVariable("page") int page) {
         Genre genre = Genre.valueOf(genreIndex);
