@@ -83,11 +83,10 @@ public class ServiceController {
         return ResponseEntity.created(location).build();
     }
 
-    @PostMapping("api/usersAlsoRead/{id}")
-    public List<Book> usersAlsoRead(@RequestBody Long id)
-    {
+    @GetMapping("api/usersAlsoRead/{id}")
+    public List<Book> usersAlsoRead(@PathVariable Long id) {
         Set<Long> bookIdSet = new HashSet<Long>();
-       Book book = BookService.findBookById(id);
+        Book book = BookService.findBookById(id);
         for (long userId:
              book.getUsersId()) {
            User user = userClient.getUser(userId);
