@@ -18,9 +18,6 @@ public class User {
     private String password;
     private String name;
 
-    @ElementCollection(targetClass=String.class)
-    private List<Long> booksRead = new ArrayList<>();
-
     public User(String email, String password, String name) {
         this.email = email;
         this.password = password;
@@ -63,22 +60,6 @@ public class User {
         this.name = name;
     }
 
-    public List<Long> getBooksRead() {
-        return booksRead;
-    }
-
-    public void setBooksRead(List<Long> booksRead) {
-        this.booksRead = booksRead;
-    }
-
-    public void addBook(Long bookId) {
-        booksRead.add(bookId);
-    }
-
-    public void removeBook(Long bookId) {
-        booksRead.remove(bookId);
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -104,7 +85,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
-                ", booksRead=" + booksRead +
                 '}';
     }
 }

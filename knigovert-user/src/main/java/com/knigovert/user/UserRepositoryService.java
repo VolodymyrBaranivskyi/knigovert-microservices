@@ -41,7 +41,6 @@ public class UserRepositoryService implements UserService {
         user.setEmail(updatedUser.getEmail());
         user.setPassword(updatedUser.getPassword());
         user.setName(updatedUser.getName());
-        user.setBooksRead(updatedUser.getBooksRead());
         return userRepository.save(user);
     }
 }
