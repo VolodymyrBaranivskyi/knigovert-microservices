@@ -4,9 +4,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -17,6 +17,9 @@ public class User {
     private String email;
     private String password;
     private String name;
+
+    @ElementCollection
+    private Set<Long> booksRead = new HashSet<>();
 
     public User(String email, String password, String name) {
         this.email = email;
@@ -60,6 +63,22 @@ public class User {
         this.name = name;
     }
 
+    public Set<Long> getBooksRead() {
+        return booksRead;
+    }
+
+    public void setBooksRead(Set<Long> booksRead) {
+        this.booksRead = booksRead;
+    }
+
+    public void addBook(Long bookId) {
+        booksRead.add(bookId);
+    }
+
+    public void removeBook(Long bookId) {
+        booksRead.remove(bookId);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -85,6 +104,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
+                ", booksRead=" + booksRead +
                 '}';
     }
 }
