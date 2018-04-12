@@ -90,16 +90,15 @@ public class ServiceController {
 
     @GetMapping("api/usersAlsoRead/{id}")
     public List<Book> usersAlsoRead(@PathVariable Long id) {
-        Set<Long> bookIdSet = new HashSet<Long>();
-        Book book = BookService.findBookById(id);
-        for (long userId:
-             book.getUsersId()) {
-           User user = userClient.getUser(userId);
-            bookIdSet.addAll(user.getBooksRead());
-        }
+        Set<Long> bookIds = new HashSet<>();
+
+        userClient.getUsers().stream()
+                .filter(user -> user.getBooksRead().contains(id))
+                .forEach(user -> bookIds.addAll(user.getBooksRead()));
+        bookIds.remove(id);
+
         List<Book> books = new ArrayList<>();
-        for (Long bookId:
-                bookIdSet) {
+        for (Long bookId : bookIds) {
             books.add(BookService.findBookById(bookId));
         }
         return books;
