@@ -1,6 +1,7 @@
 package com.knigovert.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -58,5 +59,15 @@ public class UserController {
     @PostMapping("/user/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
         return ResponseEntity.ok(userService.updateUser(id, updatedUser));
+    }
+
+    @GetMapping("/config/global")
+    public String globalConfig(@Value("${lab3.global.property}") String global) {
+        return global;
+    }
+
+    @GetMapping("/config/local")
+    public String localConfig(@Value("${lab3.local.something}") String local) {
+        return local;
     }
 }
