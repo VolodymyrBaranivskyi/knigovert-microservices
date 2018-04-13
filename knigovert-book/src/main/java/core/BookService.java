@@ -21,7 +21,6 @@ public class BookService {
     public BookService(BookRepository bookRepository)
     {
         this.bookRepository = bookRepository;
-        populateDB();
     }
 
     public static List<Book> findAllBooks(int page) {
@@ -54,18 +53,4 @@ public class BookService {
         Optional.ofNullable(updatedBook.getTitle()).ifPresent(book::setTitle);
         return bookRepository.save(book);
     }
-
-    public void populateDB()
-    {
-        bookRepository.save(new Book("FirstBook","authorName","authorSurname",
-                "Bestseller", 2018, 5.0, Genre.SCIFI));
-        bookRepository.save(new Book("SecondBook","authorName","authorSurname",
-                "Bestseller", 2018, 5.0, Genre.FANTASY));
-        bookRepository.save(new Book("ThirdBook","authorName","authorSurname",
-                "Bestseller", 2018, 5.0, Genre.SCIFI));
-        bookRepository.save(new Book("FourthBook","authorName","authorSurname",
-                "Bestseller", 2018, 5.0, Genre.SCIFI));
-
-    }
-
 }
