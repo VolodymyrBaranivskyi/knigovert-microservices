@@ -1,6 +1,7 @@
 package core;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,8 @@ import java.util.Optional;
 @Service
 public class BookService {
     private BookRepository bookRepository;
-    private static final int BOOKS_PER_PAGE = 3;
+    @Value("${lab3.local.page.size}")
+    private int pageSize = 3;
 
     @Autowired
     public BookService(BookRepository bookRepository) {
@@ -24,7 +26,7 @@ public class BookService {
 
     public List<Book> findAllBooks(int page) {
         Page<Book> booksPerPage = bookRepository.findAll(
-                PageRequest.of(page, BOOKS_PER_PAGE));
+                PageRequest.of(page, pageSize));
         return booksPerPage.getContent();
     }
 
@@ -33,7 +35,7 @@ public class BookService {
     }
 
     public List<Book> findBooksByGenre(Genre genre, int page) {
-        Page<Book> booksPerPage = bookRepository.findByGenre(genre, PageRequest.of(page, BOOKS_PER_PAGE));
+        Page<Book> booksPerPage = bookRepository.findByGenre(genre, PageRequest.of(page, pageSize));
         return booksPerPage.getContent();
     }
 
