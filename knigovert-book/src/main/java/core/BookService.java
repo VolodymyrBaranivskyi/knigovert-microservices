@@ -14,35 +14,34 @@ import java.util.Optional;
 
 @Service
 public class BookService {
-
-    private static BookRepository bookRepository;
+    private BookRepository bookRepository;
     private static final int BOOKS_PER_PAGE = 3;
 
-    public BookService(BookRepository bookRepository)
-    {
+    @Autowired
+    public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
-    public static List<Book> findAllBooks(int page) {
+    public List<Book> findAllBooks(int page) {
         Page<Book> booksPerPage = bookRepository.findAll(
                 PageRequest.of(page, BOOKS_PER_PAGE));
         return booksPerPage.getContent();
     }
 
-    public static Book findBookById(Long id) {
+    public Book findBookById(Long id) {
         return bookRepository.findById(id);
     }
 
-    public static List<Book> findBooksByGenre(Genre genre, int page) {
+    public List<Book> findBooksByGenre(Genre genre, int page) {
         Page<Book> booksPerPage = bookRepository.findByGenre(genre, PageRequest.of(page, BOOKS_PER_PAGE));
         return booksPerPage.getContent();
     }
 
-    public static Book addBook(Book book) {
+    public Book addBook(Book book) {
         return bookRepository.save(book);
     }
 
-    public static Book updateBook(Long id, Book updatedBook) {
+    public Book updateBook(Long id, Book updatedBook) {
         Book book = bookRepository.findById(id);
         Optional.ofNullable(updatedBook.getAuthorName()).ifPresent(book::setAuthorName);
         Optional.ofNullable(updatedBook.getAuthorSurname()).ifPresent(book::setAuthorSurname);

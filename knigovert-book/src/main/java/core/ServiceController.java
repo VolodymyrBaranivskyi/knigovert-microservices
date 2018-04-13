@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 @RestController
 public class ServiceController {
     @Autowired
+    private BookService bookService;
+    @Autowired
     private UserClient userClient;
     @Autowired
     private ReviewClient reviewClient;
@@ -49,12 +51,12 @@ public class ServiceController {
 
     @GetMapping("api/findAllBooks/{page}")
     public List<Book> findAllBooks(@PathVariable("page") int page) {
-        return BookService.findAllBooks(page);
+        return bookService.findAllBooks(page);
     }
 
     @GetMapping(value ="api/findBookById/{id}")
     public Book finBookById(@PathVariable("id") Long id) {
-        Book foundBook = BookService.findBookById(id);
+        Book foundBook = bookService.findBookById(id);
         if(foundBook != null)
         {
             return foundBook;
@@ -82,13 +84,13 @@ public class ServiceController {
     @GetMapping("api/findBooksByGenre/{genre}/{page}")
     public List<Book> findBooksByGenre(@PathVariable("genre") int genreIndex, @PathVariable("page") int page) {
         Genre genre = Genre.valueOf(genreIndex);
-        return BookService.findBooksByGenre(genre, page);
+        return bookService.findBooksByGenre(genre, page);
     }
 
     @PostMapping("api/addBook")
     public ResponseEntity<Void> addBook(@RequestBody Book book) {
 
-        Book newBook = BookService.addBook(book);
+        Book newBook = bookService.addBook(book);
         if (newBook == null)
             return ResponseEntity.noContent().build();
 
@@ -101,7 +103,7 @@ public class ServiceController {
 
     @PostMapping(value ="api/book/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable("id") Long id, @RequestBody Book updatedBook) {
-        return ResponseEntity.ok(BookService.updateBook(id, updatedBook));
+        return ResponseEntity.ok(bookService.updateBook(id, updatedBook));
     }
 
     @GetMapping("api/usersAlsoRead/{id}")
@@ -115,7 +117,7 @@ public class ServiceController {
 
         List<Book> books = new ArrayList<>();
         for (Long bookId : bookIds) {
-            books.add(BookService.findBookById(bookId));
+            books.add(bookService.findBookById(bookId));
         }
         return books;
     }
