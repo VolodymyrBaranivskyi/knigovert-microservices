@@ -2,6 +2,7 @@ package com.knigovert.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -37,8 +38,8 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public List<User> getUsers() {
-        return userService.getList();
+    public Page<User> getUsers(@RequestParam(name = "page", defaultValue = "0") int page) {
+        return userService.getPage(page);
     }
 
     @GetMapping("/user/{id}")

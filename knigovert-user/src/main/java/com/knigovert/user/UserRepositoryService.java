@@ -1,6 +1,9 @@
 package com.knigovert.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,10 +13,12 @@ import java.util.Optional;
 @Service
 public class UserRepositoryService implements UserService {
     private UserRepository userRepository;
+    private int pageSize;
 
     @Autowired
-    public UserRepositoryService(UserRepository userRepository) {
+    public UserRepositoryService(UserRepository userRepository, @Value("${api.page.size: #{10}}") int pageSize) {
         this.userRepository = userRepository;
+        this.pageSize = pageSize;
     }
 
     @Override
@@ -21,6 +26,11 @@ public class UserRepositoryService implements UserService {
         List<User> list = new ArrayList<>();
         userRepository.findAll().forEach(list::add);
         return list;
+    }
+
+    @Override
+    public Page<User> getPage(int page) {
+        return userRepository.findAll(PageRequest.of(page, pageSize));
     }
 
     @Override
