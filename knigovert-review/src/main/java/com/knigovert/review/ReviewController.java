@@ -67,4 +67,10 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.updateReview(id, updatedReview));
     }
 
+    @GetMapping("/configuration")
+    public Map<String, String> getConfiguration(@Value("${api.page.size}") int pageSize) {
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("Page size", String.valueOf(pageSize));
+        return map;
+    }
 }
