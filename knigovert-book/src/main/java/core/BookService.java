@@ -16,12 +16,12 @@ import java.util.Optional;
 @Service
 public class BookService {
     private BookRepository bookRepository;
-    @Value("${lab3.local.page.size}")
-    private int pageSize = 3;
+    private int pageSize;
 
     @Autowired
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, @Value("${api.page.size: #{10}}") int pageSize) {
         this.bookRepository = bookRepository;
+        this.pageSize = pageSize;
     }
 
     public List<Book> findAllBooks(int page) {
