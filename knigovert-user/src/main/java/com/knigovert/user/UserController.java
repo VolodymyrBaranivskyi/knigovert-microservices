@@ -62,9 +62,13 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUser(id, updatedUser));
     }
 
-    @GetMapping("/config/global")
-    public String globalConfig(@Value("${lab3.global.property}") String global) {
-        return global;
+    @GetMapping("/configuration")
+    public Map<String, String> getConfiguration(@Value("${api.page.size}") int pageSize,
+                                   @Value("${user.hidden.displayedName}") String hiddenName) {
+        Map<String, String> map = new LinkedHashMap<>();
+        map.put("Page size", String.valueOf(pageSize));
+        map.put("Displayed name for hidden users", hiddenName);
+        return map;
     }
 
     @GetMapping("/config/local")
