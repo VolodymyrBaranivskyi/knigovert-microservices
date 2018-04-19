@@ -1,6 +1,7 @@
 package com.knigovert.review.repository;
 
 import com.knigovert.review.model.Review;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +11,7 @@ import java.util.Optional;
  */
 public interface ReviewService {
     List<Review> getList();
+    Page<Review> getPage(int page);
     Optional<Review> getReview(Long id);
     Review createReview(Long bookId, Long userId, int rating, String review );
     Review updateReview(Long id, Review updatedReview);

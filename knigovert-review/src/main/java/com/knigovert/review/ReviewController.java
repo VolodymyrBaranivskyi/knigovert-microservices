@@ -3,6 +3,8 @@ package com.knigovert.review;
 import com.knigovert.review.model.Review;
 import com.knigovert.review.repository.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -41,8 +43,8 @@ public class ReviewController {
     }
 
     @GetMapping("/reviews")
-    public List<Review> getReviews() {
-        return reviewService.getList();
+    public Page<Review> getReviews(@RequestParam(name = "page", defaultValue = "0") int page) {
+        return reviewService.getPage(page);
     }
 
     @GetMapping("/review/{id}")
