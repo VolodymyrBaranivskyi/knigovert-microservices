@@ -68,9 +68,10 @@ public class ReviewController {
     }
 
     @GetMapping("/configuration")
-    public Map<String, String> getConfiguration(@Value("${api.page.size}") int pageSize) {
+    public Map<String, String> getConfiguration(@Value("${api.page.size}") int pageSize, @Value("${review.rating.size}") int ratingSize) {
         Map<String, String> map = new LinkedHashMap<>();
         map.put("Page size", String.valueOf(pageSize));
+        map.put("Rating size", String.valueOf(ratingSize));
         return map;
     }
 }
